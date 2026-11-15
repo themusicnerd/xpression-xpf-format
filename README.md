@@ -48,16 +48,30 @@ Rebuilding the file this way (same header, entries in order, recalculated offset
   `link` is the DataLinq source name as set in the DataLinq Server. `col` is a path into the source's JSON: with the Google Sheets `values` API, `values<row>\array<column>` with both counted from 0. `%Row%` comes from the scene's DataLinq key, which is often `%relid%`.
 - `xpf/datalinqservers/server`: host and port of the DataLinq server.
 
-## Tool
+## Tools
 
-```bash
-python xpf_tool.py info   Project.xpf          # list entries
-python xpf_tool.py unpack Project.xpf out/     # 000.xml, 001.xml, 002.bmp … + manifest.json
-# edit out/001.xml (keep it well-formed UTF-8)
-python xpf_tool.py pack   out/ Project-edited.xpf
-```
+Everything is in `tools/` (Python 3; `xpf_edit.py` and `xpf_tool.py` need only the standard library).
 
-`xpfpack.py` is the small read/write library behind it.
+| Script | What it does |
+|---|---|
+| `xpfpack.py` | Read and write the container (library) |
+| `xpf_tool.py` | `info` / `unpack` / `pack` a whole project |
+| `xpf_edit.py` | Batch edits: `summary`, `datalinq`, `relink`, `shiftcols`, `colour`, `media`, `rename-material` |
+| `sparkle_logo_render.py` | Procedural sparkle logo IN/OUT frames with alpha (Pillow, NumPy, SciPy) |
+| `blender_export_xpression.py` | Blender export to FBX / OBJ / OBJ sequence for XPression |
+
+## Skills (for Claude and other LLM agents)
+
+`skills/` holds task guides in SKILL.md format. Each one also works as a normal how-to for people.
+
+| Skill | Use it for |
+|---|---|
+| [`xpression-project-edit`](skills/xpression-project-edit/SKILL.md) | Audit and batch-edit `.xpf` projects: rebranding, DataLinq relinking, recolouring, swapping media |
+| [`xpression-datalinq-sheets`](skills/xpression-datalinq-sheets/SKILL.md) | Google Sheets → DataLinq JSON, column mapping, fixing indices after columns move |
+| [`xpression-media-prep`](skills/xpression-media-prep/SKILL.md) | Alpha clips → ProRes 4444 → XPression codec, logo animation rules, procedural sparkles |
+| [`xpression-3d-import`](skills/xpression-3d-import/SKILL.md) | FBX / OBJ / OBJ sequence / 3DS / C4D from Blender, Maya, Max, Houdini, CAD |
+
+To use them with Claude, copy a skill folder into your skills directory (or upload it as a skill).
 
 ## Tips
 
