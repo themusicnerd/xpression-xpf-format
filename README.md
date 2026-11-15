@@ -68,4 +68,5 @@ python xpf_tool.py pack   out/ Project-edited.xpf
 ## Media notes
 
 - XPression's own rendered clips use the `XPVC` FourCC (Ross's codec). Tools like ffmpeg can't decode it.
-- In one XPression 11.5 test, a **QuickTime Animation (`qtrle`) ARGB** `.mov` used as a video material showed up as a black square. Use a codec with alpha that XPression supports (for example ProRes 4444) or an image sequence.
+- **XPression 64-bit does not load QuickTime files at all.** On 11.5 (build 5816), both QuickTime Animation and ProRes 4444 `.mov` files used as video materials fail with *"Quicktime files are not supported in 64-bit … Please convert it to XPression codec."* Convert clips to the XPression codec (`XPVC` in an `.avi`) on a machine that has the Ross codec installed, for example from a PNG/TGA image sequence with alpha.
+- Swapping media by text edit works: change the path in `filemanager/video/item` (or drop the new clip in under the same file name). Materials refer to files by index, so nothing else needs to change.
